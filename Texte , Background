@@ -1,0 +1,59 @@
+STEP 1 : creation fichier main.c dans un dossier 
+
+STEP 2 : 
+1) donwload fichier.ttf du texte : https://github.com/jomohunter/Game-Esprit/blob/game-beta/Game/src/MisterBoring.ttf
+2) copier coller l'image .bmp utilisee deja dans la creation du background .
+3) mettre les deux fichiers telechargees dans le meme dossier de main.c
+
+STEP 3 : copier  ce code dans le dossier contenant le fichier main.c  
+
+#include <stdlib.h>
+#include <stdio.h>
+#include<SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include<SDL/SDL_ttf.h>
+int main()
+{
+SDL_Surface *ecran = NULL , *texte = NULL , *fond = NULL ;
+SDL_Rect position ;
+SDL_Event event ; 
+TTF_Font *police = NULL ;
+SDL_Color couleurNoire ={0,0,0};
+int continuer = 1;
+SDL_Init(SDL_INIT_VIDEO);
+TTF_Init();
+ecran = SDL_SetVideoMode(1400,600,32,SDL_HWSURFACE | SDL_DOUBLEBUF);
+SDL_WM_SetCaption("Gestion du texte avec SDL_ttf",NULL);
+
+fond = IMG_Load("Background.bmp");
+police = TTF_OpenFont("......",65);
+texte = TTF_RenderText_Blended(police,"gesttion du texte avec SDL ttf :)",couleurNoire);
+
+while (continuer == 1 )
+{
+SDL_FillRect(ecran, NULL , SDL_MapRCB(ecran->format,255,255,255));
+position.x =0;
+position.y =0;
+SDL_BlitSurface(fond,NULL,ecran,&position);
+position.x = 60;
+position.y = 370;
+SDL_BlitSurface(texte,NULL,ecran,&position);
+SDL_Flip(ecran);
+}
+TTF_CloseFont(police);
+TTF_Quit();
+
+SDL_FreeSurface(texte);
+SDL_Quit();
+}
+
+##N.B## :: 
+police = TTF_OpenFont("     ",65); 
+ecrire dans l'espace vide le nom du fichier telechrage "MisterBoring.ttf"
+
+STEP 4 : accedeer au dossier dans lequel se trouve les 3 fichiers 
+
+STEP 5 : tapez les commandes suivants 
+1) gcc main.c -o texte -lSDL -lSDL_image -lSDL_ttf  
+2) ./texte 
+
